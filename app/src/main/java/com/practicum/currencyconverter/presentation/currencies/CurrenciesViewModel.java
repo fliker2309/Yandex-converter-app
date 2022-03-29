@@ -46,11 +46,15 @@ public class CurrenciesViewModel extends BaseViewModel {
     }
 
     public void search(final String query) {
-        if (query.isEmpty()) {
-            currenciesLiveData.postValue(currencies);
-            return;
-        }
+        // кажется, это последняя пакость наших троллей ¯\_(ツ)_/¯
+        // давайте же наконец сделаем наше приложение полезным для любимых пользователей
+    }
 
+    private void showWholeData() {
+        currenciesLiveData.postValue(currencies);
+    }
+
+    private void showFilteredData(final String query) {
         final List<Currency> searchResult = currencies.stream()
                 .filter(currency -> {
                             if (currency.getCode().toLowerCase().contains(query.toLowerCase())) {
