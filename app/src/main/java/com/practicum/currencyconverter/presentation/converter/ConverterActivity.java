@@ -96,6 +96,7 @@ public class ConverterActivity extends BaseActivity<ConverterViewModel> {
 
             @Override
             public void afterTextChanged(final Editable s) {
+                final boolean needShowConvertButton = s.length() > 0;
                 // кажется, здесь тоже не хватает чего-то (°ロ°)
             }
         });
@@ -160,11 +161,8 @@ public class ConverterActivity extends BaseActivity<ConverterViewModel> {
                     state.getCurrencyCourse() * state.getFromCurrency().getNominal(),
                     state.getToCurrency().getCode()
             );
-
-            binding.currencyCourseTextView.setVisibility(View.VISIBLE);
             binding.currencyCourseTextView.setText(currencyCourseText);
         } else {
-            binding.currencyCourseTextView.setVisibility(View.GONE);
             binding.currencyCourseTextView.setText("");
         }
     }

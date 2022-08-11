@@ -88,6 +88,11 @@ public class ConverterViewModel extends BaseViewModel {
     }
 
     public void swapCurrencies(final String fromCurrencyInput) {
+        final double result = Double.parseDouble(fromCurrencyInput);
+        swapCurrencies(result);
+    }
+
+    public void swapCurrencies(final double fromCurrencyInput) {
         final ConverterState resultState;
 
         if (currentState().getToCurrencyInput() == 0.0 && currentState().getFromCurrencyInput() == 0.0) {
@@ -99,7 +104,7 @@ public class ConverterViewModel extends BaseViewModel {
             resultState = new ConverterState.Builder(currentState())
                     .setFromCurrency(currentState().getToCurrency())
                     .setToCurrency(currentState().getFromCurrency())
-                    .setToCurrencyInput(Double.parseDouble(fromCurrencyInput))
+                    .setToCurrencyInput(fromCurrencyInput)
                     .setFromCurrencyInput(0.0)
                     .copy();
         } else {
@@ -121,13 +126,29 @@ public class ConverterViewModel extends BaseViewModel {
 
     public void convertUserInput(final String fromCurrencyInput) {
         final double result = Double.parseDouble(fromCurrencyInput);
-        final double toCurrencyInput = result * currentState().getCurrencyCourse();
+        convertUserInput(result);
+    }
 
+    public void convertUserInput(final double fromCurrencyInput) {
+        final double toCurrencyInput = 0; // вам не кажется, что здесь не должно быть 0?
+
+        // кажется, это последняя пакость наших троллей ¯\_(ツ)_/¯
+        // давайте же наконец сделаем наше приложение полезным для любимых пользователей
+        // метод getCurrencyCourse() может нам помочь получить актуальный курс валют
+
+        showActualRate(fromCurrencyInput, toCurrencyInput);
+    }
+
+    private void showActualRate(final double fromCurrencyInput, final double toCurrencyInput) {
         final ConverterState resultState = new ConverterState.Builder(currentState())
-                .setFromCurrencyInput(result)
+                .setFromCurrencyInput(fromCurrencyInput)
                 .setToCurrencyInput(toCurrencyInput)
                 .copy();
 
         converterStateLiveData.setValue(resultState);
+    }
+
+    private double getCurrencyCourse() {
+        return currentState().getCurrencyCourse();
     }
 }
