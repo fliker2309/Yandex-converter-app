@@ -10,6 +10,7 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.practicum.currencyconverter.R;
 import com.practicum.currencyconverter.data.models.Currency;
@@ -214,10 +215,15 @@ public class ConverterActivity extends BaseActivity<ConverterViewModel> {
         }
     }
 
-    private void swapCurrencies() {
+    private void swapCurrencies(){
         final Editable from = binding.fromInputEditText.getText();
-        if (from != null) {
+        try {
+            assert from != null;
             viewModel.swapCurrencies(from.toString());
         }
+        catch (NumberFormatException e) {
+            Toast.makeText(getApplicationContext(),"This is " + e + "exception", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
