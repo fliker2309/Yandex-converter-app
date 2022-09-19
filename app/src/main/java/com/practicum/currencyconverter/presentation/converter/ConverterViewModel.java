@@ -132,10 +132,6 @@ public class ConverterViewModel extends BaseViewModel {
     public void convertUserInput(final double fromCurrencyInput) {
         final double toCurrencyInput = getCurrencyCourse() * fromCurrencyInput;
 
-        // кажется, это последняя пакость наших троллей ¯\_(ツ)_/¯
-        // давайте же наконец сделаем наше приложение полезным для любимых пользователей
-        // метод getCurrencyCourse() может нам помочь получить актуальный курс валют
-
         showActualRate(fromCurrencyInput, toCurrencyInput);
     }
 
